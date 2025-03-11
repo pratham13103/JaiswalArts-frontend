@@ -1,20 +1,55 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useCart } from "../../context/CartContext"; // Import Cart Context
+
+const products = [
+  {
+    id: 1,
+    image: "/products/mandala1.jpeg",
+    name: "Mandala Radiance",
+    artist: "Aarav Mehta",
+    description: "A detailed mandala art piece.",
+    originalPrice: 5000,
+    currentPrice: 3500,
+    category: "Mandala Art",
+  },
+  {
+    id: 2,
+    image: "/products/mandala2.jpeg",
+    name: "Tribal Tales",
+    artist: "Priya Sharma",
+    description: "A traditional mandala artwork.",
+    originalPrice: 6000,
+    currentPrice: 4200,
+    category: "Mandala Art",
+  },
+  {
+    id: 3,
+    image: "/products/mandala3.jpeg",
+    name: "Pencil Magic",
+    artist: "Rahul Verma",
+    description: "A stunning pencil mandala.",
+    originalPrice: 7000,
+    currentPrice: 4800,
+    category: "Mandala Art",
+  },
+  {
+    id: 4,
+    image: "/products/painting1.jpeg",
+    name: "Serene Landscape",
+    artist: "Neha Kapoor",
+    description: "A beautiful acrylic painting.",
+    originalPrice: 8000,
+    currentPrice: 5600,
+    category: "Paintings",
+  },
+];
 
 const categories = ["All", "Mandala Art", "Warli Art", "Sketches", "Paintings"];
 
 const Products: React.FC = () => {
-  const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const { addToCart } = useCart(); // Use Cart Context
-
-  useEffect(() => {
-    fetch("http://127.0.0.1:8000/products/")
-      .then((response) => response.json())
-      .then((data) => setProducts(data))
-      .catch((error) => console.error("Error fetching products:", error));
-  }, []);
 
   const filteredProducts =
     selectedCategory === "All"
@@ -51,7 +86,7 @@ const Products: React.FC = () => {
             whileHover={{ scale: 1.05 }}
           >
             <img
-              src={product.image_url}
+              src={product.image}
               alt={product.name}
               className="w-full h-72 object-contain rounded-lg"
             />
@@ -60,9 +95,9 @@ const Products: React.FC = () => {
             <p className="text-sm mt-2">{product.description}</p>
             <p className="mt-2">
               <span className="line-through text-gray-500">
-                ₹{product.original_price}
+                ₹{product.originalPrice}
               </span>{" "}
-              <span className="text-red-600 font-bold">₹{product.current_price}</span>
+              <span className="text-red-600 font-bold">₹{product.currentPrice}</span>
             </p>
             <button
               onClick={() => addToCart(product)} // Add to Cart Functionality
