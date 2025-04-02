@@ -4,7 +4,13 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Hero from "./pages/LandingPage/Hero";
 import Products from "./pages/LandingPage/Products";
-import Cart from "./pages/Cart"; // ✅ Import Cart component
+import ProductDetail from "./pages/ProductDetail";
+import ProductSearch from "./pages/ProductSearch";
+import Cart from "./pages/Cart"; 
+import Admin from "./pages/Admin"; 
+import AdminLogin from "./pages/AdminLogin"; 
+import AdminSignup from "./pages/AdminSignup"; 
+import AddProduct from "./pages/AddProduct";
 import CustomOrder from "./pages/CustomOrders"; // ✅ Import Custom Order component
 import About from "./pages/About"; // Import About page
 import Contact from "./pages/Contact"; // Import Contact page
@@ -18,7 +24,6 @@ import { CartProvider } from "./context/CartContext"; // ✅ Import Cart Context
 
 const App: React.FC = () => {
   return (
-    <Router>
       <CartProvider>
         <div className="flex flex-col min-h-screen">
           <Navbar />
@@ -34,14 +39,19 @@ const App: React.FC = () => {
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/shipping-policy" element={<ShippingPolicy />} />
               <Route path="/products" element={<Products />} />
+              <Route path="/product-search" element={<ProductSearch />} />
+              <Route path="/products/:id" element={<ProductDetail />} /> {/* Product Details Route */}
               <Route path="/cart" element={<Cart />} /> 
+              <Route path="/admin-login" element={<AdminLogin />} /> 
+              <Route path="/admin-signup" element={<AdminSignup />} /> 
+              <Route path="/admin" element={<Admin />} /> 
+              <Route path="/add-product" element={<AddProduct />} />
               <Route path="/custom-orders" element={<CustomOrder />} /> {/* ✅ Add Custom Order Route */}
             </Routes>
           </main>
           <Footer />
         </div>
       </CartProvider>
-    </Router>
   );
 };
 

@@ -20,7 +20,7 @@ const Cart: React.FC = () => {
               <li key={item.id} className="border p-4 rounded-lg shadow-md flex items-center justify-between">
                 {/* Product Image */}
                 <img
-                  src={item.image}
+                  src={`http://localhost:8000/${item.image}`}
                   alt={item.name}
                   className="w-20 h-20 object-cover rounded-md"
                 />

@@ -2,40 +2,22 @@ import React from "react";
 
 const artists = [
   {
-    name: "Rajesh Sharma",
-    image: "/artists/artist1.jpg", // Local image
+    name: "Prarthana Jaiswal",
+    image: "/artists/artist1.jpeg", // Local image
     bio: "A contemporary artist specializing in abstract and modern art.",
     bestSelling: "The Golden Horizon",
   },
   {
-    name: "Priya Verma",
-    image: "/artists/artist2.jpg",
+    name: "Pratibha Jaiswal",
+    image: "/artists/artist2.jpeg",
     bio: "A watercolor expert known for her breathtaking landscapes.",
     bestSelling: "Serene Valley",
   },
   {
-    name: "Amit Kapoor",
-    image: "/artists/artist3.jpg",
+    name: "Prathamesh Jaiswal",
+    image: "/artists/artist3.jpeg",
     bio: "A portrait artist bringing emotions to life on canvas.",
     bestSelling: "Eternal Gaze",
-  },
-  {
-    name: "Neha Choudhary",
-    image: "/artists/artist4.jpg",
-    bio: "Blending realism and surrealism to create captivating art.",
-    bestSelling: "Dreamscape",
-  },
-  {
-    name: "Rohan Gupta",
-    image: "/artists/artist5.jpg",
-    bio: "Famous for bold strokes and vibrant color palettes.",
-    bestSelling: "Cosmic Symphony",
-  },
-  {
-    name: "Sneha Mehta",
-    image: "/artists/artist6.jpg",
-    bio: "Merging traditional techniques with modern themes.",
-    bestSelling: "Echoes of Time",
   },
 ];
 

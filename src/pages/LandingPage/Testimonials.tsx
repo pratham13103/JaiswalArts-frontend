@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 const testimonials = [
   {
@@ -39,20 +40,26 @@ const testimonials = [
   },
 ];
 
+// Duplicate testimonials to create an infinite effect
+const infiniteTestimonials = [...testimonials, ...testimonials];
+
 const Testimonials: React.FC = () => {
   return (
-    <section className="py-16 bg-gray-100">
+    <section className="py-16 bg-gray-100 overflow-hidden">
       <div className="max-w-6xl mx-auto px-6">
         <h2 className="text-4xl font-bold text-center text-gray-800 mb-10">
           What Our Customers Say
         </h2>
 
-        {/* Desktop: Grid View | Mobile: Horizontal Scroll */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-x-auto flex md:grid">
-          {testimonials.map((testimonial, index) => (
+        <motion.div
+          className="flex space-x-6 w-max"
+          animate={{ x: ["0%", "-100%"] }} // Move left continuously
+          transition={{ repeat: Infinity, duration: 40, ease: "linear" }} // Infinite smooth scrolling
+        >
+          {infiniteTestimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center text-center min-w-[300px] md:min-w-0"
+              className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center text-center min-w-[300px]"
             >
               <img
                 src={testimonial.image}
@@ -68,7 +75,7 @@ const Testimonials: React.FC = () => {
               <p className="text-gray-600">{testimonial.review}</p>
             </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useCart } from "../../context/CartContext";
+import { useCart } from "../context/CartContext";
 import { Link } from "react-router-dom";
 
 interface Product {
@@ -14,16 +15,23 @@ interface Product {
   category: string;
 }
 
-const categories = ["All", "Mandala Art", "Warli Art", "Sketches", "Paintings"];
-
-const Products: React.FC = () => {
+const ProductSearch: React.FC = () => {
+  const location = useLocation();
+  const { addToCart } = useCart();
   const [products, setProducts] = useState<Product[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState("All");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { addToCart } = useCart();
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
+    // Get the query parameter from the URL
+    const queryParams = new URLSearchParams(location.search);
+    const query = queryParams.get("query");
+    if (query) {
+      setSearchQuery(query);
+    }
+
+    // Fetch products from the backend
     fetch("http://localhost:8000/products/")
       .then((response) => {
         if (!response.ok) throw new Error("Failed to fetch products");
@@ -38,32 +46,19 @@ const Products: React.FC = () => {
         setError(error.message);
         setLoading(false);
       });
-  }, []);
+  }, [location]);
 
-  const filteredProducts =
-    selectedCategory === "All"
-      ? products
-      : products.filter((product) => product.category === selectedCategory);
+  // Filter products based on search query
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    product.category.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
-    <div className="px-5 py-10">
-      <h2 className="text-3xl font-bold text-center mb-6">Featured Artworks</h2>
-
-      <div className="flex justify-center space-x-4 mb-6">
-        {categories.map((category) => (
-          <button
-            key={category}
-            onClick={() => setSelectedCategory(category)}
-            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
-              selectedCategory === category
-                ? "bg-red-600 text-white"
-                : "bg-gray-200 hover:bg-gray-300"
-            }`}
-          >
-            {category}
-          </button>
-        ))}
-      </div>
+    <div className="px-5 py-10 mt-32"> {/* Added mt-32 to offset the fixed navbar */}
+      <h2 className="text-3xl font-bold text-center mb-6">
+        Search Results for: {searchQuery}
+      </h2>
 
       {loading ? (
         <p className="text-center text-gray-500">Loading products...</p>
@@ -80,7 +75,6 @@ const Products: React.FC = () => {
                 className="p-4 border rounded-lg shadow-md text-center cursor-pointer hover:shadow-lg transition-transform"
                 whileHover={{ scale: 1.05 }}
               >
-                {/* Wrap image and title with Link */}
                 <Link to={`/products/${product.id}`}>
                   <img
                     src={`http://localhost:8000/${product.image_url}`}
@@ -125,5 +119,4 @@ const Products: React.FC = () => {
     </div>
   );
 };
-
-export default Products;
+export default ProductSearch;

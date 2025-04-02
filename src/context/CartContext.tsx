@@ -5,8 +5,12 @@ interface Product {
   name: string;
   image: string;
   currentPrice: number;
+  originalPrice: number; // ✅ Add this
   artist: string;
+  description: string; // ✅ Add this
+  category: string; // ✅ Add this
 }
+
 
 interface CartContextType {
   cart: Product[];
